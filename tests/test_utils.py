@@ -108,7 +108,7 @@ cases = [
 def test_calculate_term_deposit_value(schedule, matures_in_years, rate, expected):
     # Interest and therefore final value is linear with the principal when there are no later deposits
     # So we can get away testing with a single principal except for edge case
-    principal = 10_000
+    principal = Decimal(10_000)
 
     value = utils.calculate_term_deposit_value(
         principal=principal, rate=rate, matures_in_years=matures_in_years, schedule=schedule
