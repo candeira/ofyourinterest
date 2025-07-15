@@ -1,7 +1,7 @@
 import pytest
 
 from ofyourinterest import utils
-from ofyourinterest.data import Schedule, Percent, Periods, Years, Dollars
+from ofyourinterest.data import Dollars, Percent, Schedule, Years
 
 cases = [
     (
