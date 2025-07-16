@@ -55,7 +55,7 @@ version = {attr = "ofyourinterest.__version__"}
 # ----
 
 [tool.mypy]
-files = "."
+files = "src/**/*.py,tests/**/*.py"
 
 # Use strict defaults
 strict = true
