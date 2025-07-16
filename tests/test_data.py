@@ -1,6 +1,6 @@
 import pytest
 
-from ofyourinterest.data import ValidationResult, TermDepositQuery, parse_term_deposit_query
+from ofyourinterest.data import ValidationResult, parse_term_deposit_query
 
 
 class TestValidationResult:
@@ -30,18 +30,17 @@ class TestValidationResult:
 class TestParseDepositQuery:
     def test_parses_valid_without_errors(self) -> None:
         data = {"schedule": "MONTHLY", "rate": "4.35", "principal": "10000", "matures_in_years": "3"}
-        query = parse_term_deposit_query(**data)
+        parse_term_deposit_query(**data)
 
     def test_parses_invalid_and_raises_with_all_the_errors(self) -> None:
-        data = {"schedule": "ANNUAL", "rate": "4.354", "principal": "10000.235", "matures_in_years": "3.5"}
+        data = {"schedule": "ANNUAL", "rate": "4.354", "principal": "-10000.235", "matures_in_years": "3.5"}
         try:
             parse_term_deposit_query(**data)
         except ValidationResult as result:
-            print("HAAHAHAHAHA")
-            print(result.error_messages)
             assert result.error_messages == (
                 "Not a valid schedule: 'ANNUAL'",
                 "Rate: The value has too many decimal places: '4.354'",
-                "Principal: The value has too many decimal places: '10000.235'",
+                "Principal: The value has too many decimal places: '-10000.235'",
+                "Principal: The value must be positive or zero: '-10000.235'",
                 "Maturity: The value has too many decimal places: '3.5'",
             )

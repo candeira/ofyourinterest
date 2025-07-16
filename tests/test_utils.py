@@ -2,9 +2,8 @@ from decimal import Decimal
 
 import pytest
 
-
+from ofyourinterest.data import Dollars, Percent, Schedule, TermDepositQuery, Years
 from ofyourinterest.utils import calculate_term_deposit_value
-from ofyourinterest.data import Dollars, Percent, Schedule, Years, TermDepositQuery
 
 cases = [
     (
@@ -109,7 +108,7 @@ cases = [
 @pytest.mark.parametrize("schedule, matures_in_years, rate, expected", cases)
 def test_calculate_term_deposit_value(schedule, matures_in_years, rate, expected):
     # Interest and therefore final value is linear with the principal when there are no later deposits
-    # So we can get away testing with a single principal except for edge case
+    # So we can get away testing with a single principal
     principal = Dollars(10_000)
     term_deposit_query = TermDepositQuery(
       schedule = schedule,

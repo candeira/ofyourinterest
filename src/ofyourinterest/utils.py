@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from .data import Dollars, Percent, Periods, Schedule, Years, periods_per_year, TermDepositQuery
+from .data import Dollars, Percent, Periods, Schedule, TermDepositQuery, Years, periods_per_year
 
 
 def do_something_useful() -> None:

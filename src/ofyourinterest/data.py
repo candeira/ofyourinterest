@@ -1,7 +1,7 @@
+from collections.abc import Sequence
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from enum import Enum
-from typing import Type, Sequence
 
 
 # In reality we'd use a currency class with different currencies
@@ -82,11 +82,11 @@ class ValidationResult(Exception):
         return self.is_valid
 
     @classmethod
-    def valid(cls: Type["ValidationResult"]) -> "ValidationResult":
+    def valid(cls: type["ValidationResult"]) -> "ValidationResult":
         return cls(is_valid=True)
 
     @classmethod
-    def failed_with(cls: Type["ValidationResult"], messages: str | Sequence[str]) -> "ValidationResult":
+    def failed_with(cls: type["ValidationResult"], messages: str | Sequence[str]) -> "ValidationResult":
         error_messages: tuple[str, ...]
         if isinstance(messages, str):
             error_messages = (messages,)
@@ -166,6 +166,9 @@ def parse_term_deposit_query(
         principal_validation = validate_two_or_less_decimaal_places(_principal, "Principal")
         if not principal_validation:
             error_messages.extend(principal_validation.error_messages)
+        # Zero dollars yield no interest, which is ok, but we don't want to have loans!
+        if _principal < 0:
+            error_messages.append(f"Principal: The value must be positive or zero: '{_principal}'")
     try:
         _maturity = Years(matures_in_years)
     except InvalidOperation:
