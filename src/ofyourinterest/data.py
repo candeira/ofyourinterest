@@ -131,7 +131,7 @@ def parse_term_deposit_query(
     rate: str,
     principal: str,
     matures_in_years: str,
-) -> TermDepositQuery | ValidationResult:
+) -> TermDepositQuery:
     """
     Accept a bunch of strings and parse them into a valid query for the term deposit, or raise the result as an error.
 
