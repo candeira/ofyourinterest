@@ -4,7 +4,7 @@ import pytest
 
 
 from ofyourinterest.utils import calculate_term_deposit_value
-from ofyourinterest.data import Dollars, Percent, Schedule, Years
+from ofyourinterest.data import Dollars, Percent, Schedule, Years, TermDepositQuery
 
 cases = [
     (
@@ -111,10 +111,13 @@ def test_calculate_term_deposit_value(schedule, matures_in_years, rate, expected
     # Interest and therefore final value is linear with the principal when there are no later deposits
     # So we can get away testing with a single principal except for edge case
     principal = Dollars(10_000)
-
-    value = calculate_term_deposit_value(
-        principal=principal, rate=rate, matures_in_years=matures_in_years, schedule=schedule
+    term_deposit_query = TermDepositQuery(
+      schedule = schedule,
+      rate = rate,
+      matures_in_years = matures_in_years,
+      principal = principal,
     )
-    # The first error was making Decimals from Floats and not for strings
-    # The second error was rounding down with int. Fixed now?
+
+    value = calculate_term_deposit_value(term_deposit_query)
+    # Test data is rounded up to the next dollar
     assert value.quantize(Decimal("0.00")) == expected
