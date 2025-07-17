@@ -38,7 +38,7 @@ Tested on 3.9 locally (where it passed until I updated some deprecated typing sy
 
 3. Now you're ready to look at the project!
 
-- Browse around if you will, or run `git log` maybew?
+- Browse around if you will, or run `git log` maybe?
 - In a terminal, make sure you're in the project's base directory, the one containing `src` and `tests`.
 - Create a virtualenv using your preferred method, or `python3.13 -m venv .venv` for the exact same Python version.
 - Activate the virtualenv using your preferred method, or `source .venv/bin/activate`.
@@ -51,7 +51,7 @@ Tested on 3.9 locally (where it passed until I updated some deprecated typing sy
 4. Now you know the project is tested, it's time to find out whether it works!
 
 - Install the package with `python -m pip install -e .`
-- Run the command by typing `ofyourinterest` and follow the online help
+- Run the command with all default values by by typing `ofyourinterest` or type `ofyourinterest --help` and follow the online help
 
 On the shoulders of giants for tooling
 ---
